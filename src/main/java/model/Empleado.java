@@ -9,13 +9,10 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.itextpdf.text.BaseColor;
-
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.Font;
-import com.itextpdf.text.FontFactory;
-import com.itextpdf.text.Paragraph;
+
+import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.opencsv.CSVWriter;
 
@@ -61,7 +58,7 @@ public class Empleado {
 
             // create a List which contains String array
             List<String[]> data = new ArrayList<String[]>();
-            data.add(new String[] { "Nombre empleado", "HorasTrabajadas", "DINERO SIUUUUU" });
+            data.add(new String[] { "Nombre empleado", "HorasTrabajadas", "Nomina" });
             for (int i = 0; i < listaEmpleados.size(); i++) {
                 System.out.print(i);
 
@@ -83,16 +80,20 @@ public class Empleado {
         PdfWriter.getInstance(document, new FileOutputStream("DocumentosGenerados/ReporteEmpleados.pdf"));
 
         document.open();
-        Font font = FontFactory.getFont(FontFactory.COURIER, 16, BaseColor.BLACK);
+        PdfPTable table = new PdfPTable(3);
+        // Font font = FontFactory.getFont(FontFactory.COURIER, 16, BaseColor.BLACK);
 
-        document.add(new Paragraph("Nombre empleado " + "Horas Trabajadas " + " Dinero a pagar"));
+        table.addCell("Nombre empleado");
+        table.addCell("Horas Trabajadas");
+        table.addCell("Nomina");
         for (int i = 0; i < listaEmpleados.size(); i++) {
-            document.add(new Paragraph(
-                    listaEmpleados.get(i).nombre + " " + String.valueOf(listaEmpleados.get(i).reporteHoras() + " "
-                            + String.valueOf(listaEmpleados.get(i).calcularPago()))));
+
+            table.addCell(listaEmpleados.get(i).nombre);
+            table.addCell(String.valueOf(listaEmpleados.get(i).reporteHoras()));
+            table.addCell(String.valueOf(listaEmpleados.get(i).calcularPago()));
 
         }
-
+        document.add(table);
         document.close();
         contador++;
         if (contador == 2) {
