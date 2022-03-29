@@ -49,7 +49,7 @@ public class Empleado {
     // genera archivo csv
     public boolean almacenar(LinkedList<Empleado> listaEmpleados) throws FileNotFoundException, DocumentException {
         boolean bandera = false;
-        int contador=0;
+        int contador = 0;
         File file = new File("ReporteEmpleados.csv");
 
         try {
@@ -84,25 +84,21 @@ public class Empleado {
 
         document.open();
         Font font = FontFactory.getFont(FontFactory.COURIER, 16, BaseColor.BLACK);
-        
 
+        document.add(new Paragraph("Nombre empleado " + "Horas Trabajadas " + " Dinero a pagar"));
+        for (int i = 0; i < listaEmpleados.size(); i++) {
+            document.add(new Paragraph(
+                    listaEmpleados.get(i).nombre + " " + String.valueOf(listaEmpleados.get(i).reporteHoras() + " "
+                            + String.valueOf(listaEmpleados.get(i).calcularPago()))));
 
-      
-        document.add(new Paragraph("Nombre empleado "+"Horas Trabajadas "+ " Dinero a pagar"));
-            for (int i = 0; i < listaEmpleados.size(); i++) {
-                document.add(new Paragraph(listaEmpleados.get(i).nombre + " "+ String.valueOf(listaEmpleados.get(i).reporteHoras()+" "+ String.valueOf(listaEmpleados.get(i).calcularPago()))));
-               
-             
+        }
 
-            }
-
-     
         document.close();
         contador++;
-        if (contador==2) {
-            bandera=true;
-            
-        } 
+        if (contador == 2) {
+            bandera = true;
+
+        }
 
         return bandera;
     }
@@ -127,10 +123,10 @@ public class Empleado {
 
         if (test.almacenar(listaEmpleados)) {
             System.out.println("Documentos generados con exito");
-            
+
         } else {
             System.out.println("Documentos no generados");
-            
+
         }
 
     }
