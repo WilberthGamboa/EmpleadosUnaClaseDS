@@ -10,7 +10,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import com.itextpdf.text.BaseColor;
-import com.itextpdf.text.Chunk;
+
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Font;
@@ -50,7 +50,7 @@ public class Empleado {
     public boolean almacenar(LinkedList<Empleado> listaEmpleados) throws FileNotFoundException, DocumentException {
         boolean bandera = false;
         int contador = 0;
-        File file = new File("ReporteEmpleados.csv");
+        File file = new File("DocumentosGenerados/ReporteEmpleados.csv");
 
         try {
             // create FileWriter object with file as parameter
@@ -80,7 +80,7 @@ public class Empleado {
         }
 
         Document document = new Document();
-        PdfWriter.getInstance(document, new FileOutputStream("Reporte.pdf"));
+        PdfWriter.getInstance(document, new FileOutputStream("DocumentosGenerados/ReporteEmpleados.pdf"));
 
         document.open();
         Font font = FontFactory.getFont(FontFactory.COURIER, 16, BaseColor.BLACK);
